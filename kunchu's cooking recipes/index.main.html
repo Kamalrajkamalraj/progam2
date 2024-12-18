@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kunchu's Cooking Recipes</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link rel="icon" type="cut logo/png" href="./cut logo.png">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+<style>
+  button {
+    background-color: #ffffff;
+  }
+
+  body{
+    background-size: cover;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;  
+    background-attachment: fixed;  
+  }
+
+  header{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    z-index: 99;
+    box-shadow: 0 0 10px#ff0000;
+    background: rgba(252, 161, 161, 0.829); 
+  }
+
+  header .search{
+    flex:1 ;
+    position: relative;
+  }
+
+  .search input{
+    width: 79%;
+    height: 60px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius: 30px;
+    color: rgb(121, 121, 121);
+    
+  }
+
+  .search-box input{
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+    border-radius: 30px;
+    color: gray;
+    font-size: 16px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 40px;
+  }
+
+  .search button{
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 80px;
+    border: none;
+    position:unset ;
+    top: 0;
+    right: 0;
+    transform: scale(1.0);
+    background: rgba(116, 245, 245, 0.726);
+  }
+
+  header ul{
+    flex: 2;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  header ul li{
+    list-style: none;
+  }
+
+  header ul li a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 15px;
+  }
+
+  header ul li a:hover{
+    border-bottom: 2px solid rgb(255, 255, 255);
+  }
+
+  header.menu{
+    font-size: 2.5em;
+    display: none;
+  }
+
+  @media (max-width: 1000px) {
+  .search-box button {
+        position: absolute;
+    }
+  header ul {
+        position: fixed;
+        top: 100px;
+        right: -100%;
+        background: rgba(0, 0, 0, 0.5);
+        height: calc(100vh - 100px);
+        width: 50%;
+        flex-direction: column;
+        align-items: center;
+        transition: right 0.5s linear;
+    }
+  header .menu {
+        display: block;
+    }
+  }
+  .chat-container {
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 255, 255);
+    display: none; /* Hidden by default */
+  }
+
+  .chat-header {
+    background-color: #ff8ed9;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+  }
+
+  .chat-messages {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border-bottom: 1px solid #e00909;
+  }
+
+  .chat-input {
+    padding: 10px;
+  }
+
+  .chat-input input {
+    width: 80%;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .chat-input button {
+    padding: 8px 10px;
+    background-color: #ffffff;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .chat-toggle-btn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background-color: #ff7be2ce;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }    
+  
+  .blinking-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: blue;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    animation: blink 0.2s infinite; /* Blinks every 0.2 seconds */
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+</style>
+<style>
+  .search-container {
+    text-align: center;          
+    margin-top: 100px;   
+  }
+  #search {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  #mic {
+    cursor: pointer;   
+  }
+</style>
+<style>
+  .subscribe-btn {
+    background: linear-gradient(135deg, rgb(163, 0, 0), rgb(255, 0, 0));
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    bottom: 80px; 
+    right: 15px; 
+    z-index: 1000;  
+  }
+  .subscribe-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.623);
+  }    
+  .subscribe-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.425);
+  }      
+  .subscribed {
+    background:linear-gradient(135deg, rgb(0, 195, 255), rgba(255, 217, 0, 0.692));
+    cursor: not-allowed;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.425);
+  }
+</style>
+<style>
+  .heart {
+    font-size: 30px;
+    color: grey;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.1s ease-in-out;
+  }
+  .heart.clicked {
+    color: red; /* Change color to red when clicked */
+  }
+</style>
+<style>
+  /* Make the site responsive */
+* {
+  box-sizing: border-box;
+}
+
+/* Mobile-first styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  width: 100%;
+  padding: 15px;
+  margin: auto;
+}
+
+/* Header styling */
+header {
+  background-color: #fd7373af;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 24px;
+}
+
+/* General sections */
+section {
+  padding: 20px;
+  margin: 20px 0;
+}
+
+/* Footer styling */
+footer {
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* Default button styles */
+
+
+/* Mobile layout adjustments for small screens */
+@media (max-width: 568px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  section {
+    padding: 10px;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+/* Mobile layout adjustments for very small screens */
+@media (max-width: 280px) {
+  header h1 {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+</style>
+<link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+  
+  <!-- Main Styles -->
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      height: 100vh;
+      width: 250px;
+      background-color: #464545;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: -250px; /* Initially hidden */
+      transition: left 0.3s ease;
+      padding-top: 20px;
+      z-index: 2;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      font-size: 18px;
+      border-bottom: 1px solid #444;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #ceaeae;
+      color: #40bb44;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 20px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Menu Icon */
+    .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+      color: #836e6e;
+      padding: 10px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 3;
+    }
+
+    .menu-icon .bar {
+      width: 20px;
+      height: 2px;
+      background-color: #646060;
+      margin: 5px 0;
+      transition: 0.4s;
+    }
+
+    /* Sidebar Active */
+    .sidebar.active {
+      left: 0;
+    }
+  </style>
+
+<link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+  
+  <!-- Main Styles -->
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      height: 100vh;
+      width: 250px;
+      background-color: #ff9900a2;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: -250px; /* Initially hidden */
+      transition: left 0.3s ease;
+      padding-top: 20px;
+      z-index: 2;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 30px;
+      color: #000000;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      font-size: 18px;
+      border-bottom: 1px solid #444;
+    }
+
+    .sidebar ul li a {
+      text-decoration: solid;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #ff8800ab;
+      color: #00ff08;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 20px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Menu Icon */
+    .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+      color: #836e6e;
+      padding: 10px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 3;
+    }
+
+    .menu-icon .bar {
+      width: 20px;
+      height: 2px;
+      background-color: #504c4c;
+      margin: 5px 0;
+      transition: 0.4s;
+    }
+
+    /* Sidebar Active */
+    .sidebar.active {
+      left: 0;
+    }
+  </style>
+
+
+</head>
+    
+<body style="background-color: white;">
+  <script>
+    function toggleHeart(buttonId) {
+      const heartButton = document.getElementById(buttonId);
+      heartButton.classList.toggle('clicked');
+    }
+  </script>
+    <a href="file:///C:/Users/Dell/OneDrive/Desktop/new%20project/fav/index.html"><button id="subscribeBtn" class="subscribe-btn" onclick="subscribe()"><i class='bx bxs-heart bx-flashing' ></i></button></a>
+  <script>
+    function subscribe() {
+      const button = document.getElementById("subscribeBtn");
+      function blinkButton() {
+        button.style.visibility = (button.style.visibility === 'hidden') ? 'visible' : 'hidden';
+      }
+      button.innerHTML = "❤";
+      button.classList.add("subscribed");
+      button.disabled = true;  
+    }
+  </script>
+      
+  
+  
+  
+
+  <header>
+    <style>
+      .nav {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: transparent;
+        color: white;
+      }
+    
+      .nav img {
+        width: 160px;
+      }
+    
+      .menu-icon {
+        font-size: 25px;
+        margin-left: auto;
+        cursor: pointer;
+      }
+    
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100vh;
+        background-color: #ff9900bb;
+        overflow-y: auto;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.425);
+        transition: left 0.3s ease;
+      }
+    
+      .sidebar.active {
+        left: 0;
+      }
+    
+      .sidebar h2 {
+        margin-top: 0;
+      }
+    
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
+    
+      .sidebar ul li {
+        margin: 10px 0;
+      }
+    
+      .sidebar ul li a {
+        text-decoration: none;
+        color: #e2d9d9;
+        font-size: 16px;
+        display: block;
+        padding: 10px 0;
+      }
+    
+      .sidebar ul li a i {
+        margin-left: 10px;
+      }
+    </style>
+    
+    <div class="nav">
+      <img src="cut logo.png" width="160">
+      <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+    </div>
+    
+    <div class="sidebar" id="sidebar">
+      <img src="cut logo.png" width="150">
+      <h2>Kunchu's Cooking Recipes</h2>
+      <ul>
+        <li><a href="#">HOME <i class='bx bxs-home'></i></a></li>
+        <li><a href="#game">FUN/GAME</a></li>
+        <li><a href="#combo">COMBO'S</a></li>
+        <li><a href="#tip">TIP & TRICK</a></li>
+        <li><a href="#inc">Ingredients I Don’t Have</a></li>
+        <li><a href="#manu">ABOUT <i class='bx bxs-contact'></i></a></li>
+        <li><a href="#con">CONTACT <i class='bx bxs-phone-call'></i></a></li>
+        <li><a style="color: rgb(0, 0, 0);" href="file:///C:/Users/Dell/OneDrive/Desktop/new%20project/sign%20up/index.html"><i class='bx bxs-user-circle icon-size'></i></a></li>
+        <h1 id="greeting"></h1>
+    <script>
+        // Get the name from local storage
+        const name = localStorage.getItem('userName');
+        // Display the greeting if the name exists
+        if (name) {
+            document.getElementById('greeting').innerText = `Hello, ${name}!`;
+        } else {
+            document.getElementById('greeting').innerText = 'Hello, Guest!';
+        }
+    </script>
+      </ul>
+    </div>
+    
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('active');
+      }
+    </script>
+    
+    <style>
+      /* Reset some basic styles */
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+    
+      li {
+        margin-bottom: 10px; /* Add spacing between items */
+      }
+    
+      a {
+        text-decoration: none;
+        color: black; /* Change the color as needed */
+        font-size: 16px; /* Adjust font size */
+      }
+    
+      .sidebar {
+        width: 250px; /* Sidebar width */
+        background-color: #f19b39; /* Background color */
+        padding: 20px; /* Padding inside the sidebar */
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+      }
+    
+      .sidebar ul {
+        display: flex;
+        flex-direction: column; /* Ensure items are stacked vertically */
+        align-items: flex-start; /* Align items to the start of the sidebar */
+      }
+    
+      .sidebar h2 {
+        margin-bottom: 20px; /* Add spacing below the header */
+        font-size: 18px; /* Adjust the font size */
+      }
+    
+      .menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+      }
+    
+      .align-right {
+        display: flex;
+        justify-content: flex-end; /* Aligns content (the icon) to the right */
+      }
+    
+      .icon-size {
+        font-size: 50px; /* Adjust the size as needed */
+      }
+    </style>
+    
+    <div class="align-right">
+      <a style="color: rgb(0, 0, 0);" href="file:///C:/Users/Dell/OneDrive/Desktop/new%20project/sign%20up/index.html"><i class='bx bxs-user-circle icon-size'></i></a>
+    </div>
+    
+   
+  
+                
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+
+    <div class="search" class="search-container" align="right">
+      <form action="search." method="go">                
+        <b>
+          <input type="text" id="search" placeholder="   Search.." aria-label="Search" name="query">
+          <button type="submit" aria-label="Submit search">
+            <i class="fas fa-search"></i>
+          </button>
+        </b>
+      </form>
+    </div> 
+    
+    <button id="mic">
+      <h1><i class='bx bx-microphone'></i></h1>
+    </button>
+    
+    <style>
+      #mic {
+        border-radius: 50%; /* Makes the button circular */
+        width: 59px;  /* Adjust size to make it circular */
+        height: 59px; /* Adjust size to make it circular */
+        display: inline-flex; /* Centers the icon */
+        justify-content: center;
+        align-items: center;
+      }
+    
+      #mic i {
+        font-size: 24px; /* Adjust icon size */
+      }
+    </style>
+    
+   
+    <script>
+      const searchInput = document.getElementById('search');
+      const micButton = document.getElementById('mic');
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+              
+      recognition.onstart = function() {
+        console.log('Voice recognition activated.');
+      };
+              
+      recognition.onspeechend = function() {
+        console.log('Voice recognition ended.');
+        recognition.stop();
+      };
+              
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        searchInput.value = transcript;
+        console.log('Transcript:', transcript);
+      };
+              
+      micButton.addEventListener('click', () => {
+        recognition.start();
+      });
+    </script>
+              
+  </header>
+  <style>
+    .page-container {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background 1s ease-in-out;
+            
+        }
+    
+    .dynamic-background-button {
+        position: fixed;
+        bottom: 65px;
+        left: 15px;
+        padding: 10px 15px;
+        background: linear-gradient(to right, #ffffff, #303030);
+        color: rgb(0, 0, 0);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .dynamic-background-button:hover {
+      background: linear-gradient(to right, #000000c5, #ffffff);
+        transform: scale(1.05);
+    }
+</style>
+<button class="dynamic-background-button" onclick="changeBackgroundColor()"><b>Change Background Color</b></button>
+<script>
+    function changeBackgroundColor() {
+        const colors = [
+            '#F0F8FF', '#F0FFFF', '#FFFAF0',
+            '#F0FFF0', '#F5FFFA', '#FFFAFA',
+            '#E6E6FA'
+        ];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        document.body.style.backgroundColor = randomColor;
+        console.log("Background color changed to:", randomColor); // Debugging statement
+    }
+</script>
+
+<pre style="color: rgb(255, 255, 255);">
+<a name="top"></a>
+
+
+
+
+
+
+
+              </pre>
+
+    <center><h2 style="color:rgba(0, 0, 0, 0.534) ;"><pre style="font-style:italic">"Quick and easy meal prep without the grocery trip"</pre></h2></center>
+    <table border="5" bordercolor="NavajoWhite"> 
+      <th bgcolor="Thistle">
+        <p>Food making is a beautiful blend of art and science, 
+           where every ingredient plays a vital role in the creation of a dish. 
+            It is an act of love, requiring patience, attention to detail, and a deep understanding of flavors.
+            The process begins with selecting the freshest ingredients, 
+            knowing that the quality of the final dish is only as good 
+            as what goes into it. As you combine and transform these elements,
+            cooking becomes a creative expression, where techniques like sautéing,
+            roasting, or simmering bring out the best in each component. The true
+            joy of food making lies not just in the outcome, 
+            but in the journey the sensory experience of smelling,
+            tasting, and adjusting flavors until they are perfectly
+            balanced. Ultimately, 
+            food making is about more than just feeding the body;
+            it’s about nourishing the soul and creating connections, as the dishes 
+            you prepare become a way to share warmth,
+            culture, and memories with those around you.
+        </p>
+      </th> 
+    </table>
+        
+    <center>
+      <ul>
+        <a href="file:///C:/Users/Dell/OneDrive/Desktop/new%20project/breakfast/index.html"><img src="break2-removebg.png" width="280"></a>
+        <a href="#"><img src="lunch2-removebg.png" width="337"></a>
+        <a href="#"><img src="dinner-removebg.png" width="258"></a>
+      </ul>
+    </center>
+    
+    <center>
+      <ul>
+        <img src="snacks-removebg.png" width="300">
+        <a href="file:///C:/Users/Dell/OneDrive/Desktop/new%20project/desserts/index.html"><img src="dessert-removebg.png" width="239"></a>
+      </ul>
+    </center>
+    
+    <ul>
+      <a><center><img src="currys-removebg.png" width="480"></center></a>
+    </ul>
+    <hr>
+    <a name="game">
+    <a href="file:///C:/Users/Dell/OneDrive/Desktop/new%20project/profile/index.html">
+      <u style="color: #ffffff;">
+        <table bgcolor="black" style="border-radius: 20px; overflow: hidden;" align="center">
+          <tr>
+            <th color="white">
+              <h1 style="color: #ffffff;">
+                <a name="combo"></a>"A well-crafted profile tells your story, just like a great meal speaks to the heart."</a>
+              </h1>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <h1 style="color: #ffffff;" align="left">Add Your Profile :)</h1>
+            </th>
+            <th align="left">
+              <img src="cut logo.png" width="160" align="left">
+            </th>
+            <th align="right">
+              <a style="color: #ffffff; font-size: 80px;">
+                <i class='bx bxs-user-circle'></i>
+              </a>
+            </th>
+          </tr>
+        </table>  
+      </u>
+    </a>  
+    </a>
+    
+    
+    <div id="ready-section" class="ready-section">
+      <h2>Are You Intersted to Play A Game?<br>COOK WITH FUN/GAME.</h2>
+      <button onclick="startGame()" class="ready-button">Ready</button>
+    </div>
+    
+    <!-- Game 1: Ingredient Picker Game -->
+    <div id="ingredient-game-section" class="game-section" style="display: none;">
+      <h3>Pick Ingredients to Make Pizza</h3>
+      <div class="ingredients">
+        <label><input type="checkbox" value="flour"> Flour</label>
+        <label><input type="checkbox" value="cheese"> Cheese</label>
+        <label><input type="checkbox" value="tomato"> Tomato Sauce</label>
+        <label><input type="checkbox" value="chocolate"> Chocolate</label>
+        <label><input type="checkbox" value="pepperoni"> Pepperoni</label>
+      </div>
+      <button onclick="checkIngredients()" class="game-button">Check</button>
+      <p id="ingredient-result" class="game-result"></p>
+      <button onclick="goToNextGame()" class="game-button">Next Game</button>
+    </div>
+    
+    <!-- Game 2: Cooking Quiz -->
+    <div id="quiz-game-section" class="game-section" style="display: none;">
+      <h3>Cooking Quiz</h3>
+      <p>Which ingredient is commonly used in guacamole?</p>
+      <button onclick="checkQuizAnswer('Avocado')" class="game-button">Avocado</button>
+      <button onclick="checkQuizAnswer('Tomatoes')" class="game-button">Tomatoes</button>
+      <p id="quiz-result" class="game-result"></p>
+      <button onclick="goToNextGame()" class="game-button">Next Game</button>
+    </div>
+    
+    <!-- Game 3: Cooking Timer -->
+    <div id="timer-game-section" class="game-section" style="display: none;">
+      <h3>Cooking Timer</h3>
+      <input type="number" id="timer-input" placeholder="Set time in minutes">
+      <button onclick="startTimer()" class="game-button">Start Timer</button>
+      <p id="timer-display">00:00</p>
+      <button onclick="goToNextGame()" class="game-button">Next Game</button>
+    </div>
+    
+    <!-- Game 4: Recipe Typer -->
+    <div id="typer-game-section" class="game-section" style="display: none;">
+      <h3>Type This Recipe:</h3>
+      <p>Mix flour, sugar, eggs, and milk to make a batter.</p>
+      <textarea id="typer-input" placeholder="Start typing here..."></textarea>
+      <button onclick="checkTyping()" class="game-button">Submit</button>
+      <p id="typer-result" class="game-result"></p>
+      <button onclick="goToNextGame()" class="game-button">Next Game</button>
+    </div>
+    
+    <!-- Game 5: Guess the Ingredient -->
+    <div id="guess-game-section" class="game-section" style="display: none;">
+      <h3>Guess the Ingredient</h3>
+      <p>What is an ingredient in <strong id="dish-name">Pasta Primavera</strong>?</p>
+      <input type="text" id="ingredient-input" placeholder="Type your guess here">
+      <button onclick="checkIngredient()" class="game-button">Submit</button>
+      <p id="guess-result" class="game-result"></p>
+      <button onclick="finishGame()" class="game-button">Finish Game</button>
+    </div>
+
+    <style>
+/* Ready Section */
+.ready-section {
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ready-button {
+  padding: 10px 20px;
+  background-color: #ff9900;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.ready-button:hover {
+  background-color: #e68a00;
+  transform: scale(1.05);
+}
+
+/* Game Section */
+.game-section {
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ingredients {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.game-button {
+  padding: 10px 20px;
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.game-result {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+</style>
+<script>
+// Correct answers for each game
+const correctIngredients = ["flour", "cheese", "tomato", "pepperoni"];
+const quizAnswer = "Avocado";
+
+// Game index to track the current game
+let currentGame = 1;
+
+function startGame() {
+  // Hide the ready section
+  document.getElementById("ready-section").style.display = "none";
+  // Show the Ingredient Picker Game section
+  document.getElementById("ingredient-game-section").style.display = "block";
+}
+
+function goToNextGame() {
+  // Hide the current game section
+  document.getElementById(`${getGameSectionId(currentGame)}`).style.display = "none";
+  
+  // Increment the current game index
+  currentGame++;
+
+  // Show the next game section, if it exists
+  if (currentGame <= 5) {
+    document.getElementById(`${getGameSectionId(currentGame)}`).style.display = "block";
+  }
+}
+
+function getGameSectionId(gameIndex) {
+  return `${gameIndex === 1 ? "ingredient" : gameIndex === 2 ? "quiz" : gameIndex === 3 ? "timer" : gameIndex === 4 ? "typer" : "guess"}-game-section`;
+}
+
+function checkIngredients() {
+  const selected = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.value);
+  const result = document.getElementById("ingredient-result");
+
+  const missingIngredients = correctIngredients.filter(ingredient => !selected.includes(ingredient));
+  const wrongIngredients = selected.filter(ingredient => !correctIngredients.includes(ingredient));
+
+  if (missingIngredients.length === 0 && wrongIngredients.length === 0) {
+    result.textContent = "Perfect! You selected all the right ingredients for Pizza!";
+    result.style.color = "green";
+  } else {
+    result.textContent = `Oops! Missing: ${missingIngredients.join(", ")}; Wrong: ${wrongIngredients.join(", ")}`;
+    result.style.color = "red";
+  }
+}
+
+function checkQuizAnswer(selectedAnswer) {
+  const result = document.getElementById("quiz-result");
+  if (selectedAnswer === quizAnswer) {
+    result.textContent = "Correct! Avocado is used in Guacamole!";
+    result.style.color = "green";
+  } else {
+    result.textContent = "Wrong! The correct answer is Avocado.";
+    result.style.color = "red";
+  }
+}
+
+function startTimer() {
+  let time = parseInt(document.getElementById("timer-input").value) * 60;
+  const display = document.getElementById("timer-display");
+
+  if (isNaN(time) || time <= 0) {
+    alert('Please enter a valid time!');
+    return;
+  }
+
+  const interval = setInterval(() => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    display.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    if (time-- <= 0) {
+      clearInterval(interval);
+      alert('Time is up!');
+    }
+  }, 1000);
+}
+
+function checkTyping() {
+  const userInput = document.getElementById("typer-input").value.trim();
+  const correctText = "Mix flour, sugar, eggs, and milk to make a batter.";
+
+  const result = document.getElementById("typer-result");
+
+  if (userInput === correctText) {
+    result.textContent = "Correct! You typed the recipe correctly!";
+    result.style.color = "green";
+  } else {
+    result.textContent = "Oops! There's a mistake in your typing.";
+    result.style.color = "red";
+  }
+}
+
+function checkIngredient() {
+  const dishName = document.getElementById("dish-name").textContent;
+  const userGuess = document.getElementById("ingredient-input").value.toLowerCase();
+  const result = document.getElementById("guess-result");
+
+  if (correctIngredients[dishName].includes(userGuess)) {
+    result.textContent = "Correct! " + userGuess + " is an ingredient.";
+    result.style.color = "green";
+  } else {
+    result.textContent = "Sorry, that's not an ingredient in " + dishName + ".";
+    result.style.color = "red";
+  }
+}
+
+function finishGame() {
+  alert("Congratulations! You've finished all the games.");
+}
+
+
+</script>
+
+    <hr>       
+     <div class="recipe">
+  <h1 style="color: rgb(166, 87, 202);">Combo's for you</h1>
+    <ul> 
+      <center>
+        <button>
+          <a href="file:///C:/Users/Dell/OneDrive/Desktop/new%20project/idli%20chutney/index.idli%20chutney&sambar.html">
+            <img src="idli combo.jpg" alt="Idli Combo">
+          </a>
+          <h1>Idli Sambar & Chutney 
+            <span class="heart" onclick="toggleFavorite(this)">❤</span>
+          </h1>
+        </button>
+        <button>
+          <img src="chana bhatura combo.jpg" width="280">
+          <h1>Chana Bhatura 
+            <span class="heart" onclick="addToFavorites('Chana Bhatura', 'chana bhatura combo.jpg')">❤</span>
+          </h1>
+        </button>
+        <button>
+          <img src="poratta beef combo.jpg" width="271">
+          <h1>Poratta Beef 
+            <span class="heart" onclick="addToFavorites('Poratta Beef', 'poratta beef combo.jpg')">❤</span>
+          </h1>
+        </button>
+        <button>
+          <img src="Appam Mutta combo.jpg" width="298">
+          <h1>Appam Mutta 
+            <span class="heart" onclick="addToFavorites('Appam Mutta', 'Appam Mutta combo.jpg')">❤</span>
+          </h1>
+        </button>
+      </center>
+    </ul>
+    
+    <ul>
+      <button>
+        <img src="Puttum Kadala combo.jpg" width="240">
+        <h1>Puttum Kadala 
+          <span class="heart" onclick="addToFavorites('Puttum Kadala', 'Puttum Kadala combo.jpg')">❤</span>
+        </h1>
+      </button>
+      <button>
+        <img src="pazham pori and beef.jpg" width="373">
+        <h1>Pazham Pori & Beef 
+          <span class="heart" onclick="addToFavorites('Pazham Pori & Beef', 'pazham pori and beef.jpg')">❤</span>
+        </h1>
+      </button>
+      <button>
+        <img src="chapati chicken combo.jpg" width="226">
+        <h1>Chapati Chicken Curry 
+          <span class="heart" onclick="addToFavorites('Chapati Chicken Curry', 'chapati chicken combo.jpg')">❤</span>
+        </h1>
+      </button>
+      <button>
+        <img src="idiyappam&stew combo.jpg" width="175">
+        <h1>Idiyappam & Beef Stew 
+          <span class="heart" onclick="addToFavorites('Idiyappam & Beef Stew', 'idiyappam&stew combo.jpg')">❤</span>
+        </h1>
+      </button>
+      <button>
+        <a name="tip"><img src="kappa മത്തി meen curry combo.jpg" width="328"></a>
+        <h1>Kappa (മത്തി) Curry 
+          <span class="heart" onclick="addToFavorites('Kappa (മത്തി) Curry', 'kappa മത്തി meen curry combo.jpg')">❤</span>
+        </h1>
+      </button>
+    </ul>
+    
+    <script>
+      // Function to add items to favorites
+      function addToFavorites(name, imgSrc) {
+        // Create a favorite item object
+        const favoriteItem = { name, imgSrc };
+        
+        // Retrieve current favorites from local storage
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        
+        // Add the new item to the list
+        favorites.push(favoriteItem);
+        
+        // Save the updated list back to local storage
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+      
+        // Redirect to the favorites page
+        window.location.href = "file:///C:/Users/kamal/OneDrive/Desktop/new%20project/fav/index.html";
+      }
+    </script>
+    
+    
+    
+    
+    <style>
+    @media (max-width: 768px) {
+  .rating-section {
+    width: 90%; /* Make the rating box take up more space on smaller screens */
+    margin-top: 20px;
+  }
+  
+  .stars {
+    font-size: 28px; /* Reduce the size of the stars on smaller screens */
+  }
+}
+
+    </style>   
+    
+    <div class="random-recipe-section">
+      <button onclick="showRandomRecipe()" class="random-button">Show Me For A Random Recipe</button>
+      <div id="random-recipe-display" class="random-recipe-display">
+        <!-- Random recipe will appear here -->
+      </div>
+    </div>
+    
+
+    <style>
+      /* Random Recipe Section */
+.random-recipe-section {
+  text-align: center;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styling */
+.random-button {
+  padding: 10px 20px;
+  background-color: #ff9900;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.random-button:hover {
+  background-color: #e68a00;
+  transform: scale(1.05);
+}
+
+/* Recipe Display Styling */
+.random-recipe-display {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    </style>
+
+ <script>
+// List of random recipes
+const recipes = [
+  "1.Vegan Salad - Fresh veggies tossed with a zesty vinaigrette.",
+  "2.Chocolate Cake - A rich and moist dessert treat.",
+  "3.Grilled Chicken - Tender chicken with a smoky flavor.",
+  "4.Pasta Primavera - Classic Italian dish with fresh vegetables.",
+  "5.Fruit Smoothie - A refreshing and healthy drink.",
+  "6.Vegetable Stir Fry - Quick and delicious Asian-inspired meal.",
+  "7.Margherita Pizza - A classic Italian dish topped with fresh tomatoes, mozzarella, and basil.",
+  "8.Spaghetti Carbonara - A creamy and savory pasta with eggs, cheese, and pancetta.",
+  "9.Vegetable Stir-Fry - A colorful medley of fresh veggies tossed in a tangy soy sauce glaze.",
+  "10.Chicken Tikka Masala - A flavorful and spicy Indian curry served with basmati rice.",
+  "11.Mango Smoothie - A refreshing blend of ripe mangoes and creamy yogurt.",
+  "12.Caesar Salad - A crunchy and zesty salad with romaine, croutons, and parmesan.",
+  "13.Banana Pancakes - Fluffy pancakes infused with the sweetness of ripe bananas.",
+  "14.Garlic Butter Shrimp - Juicy shrimp sautéed in rich garlic and herb butter.",
+  "15.Avocado Toast - A simple and creamy snack topped with smashed avocado and spices.",
+  "16.Avocado Toast - A simple and creamy snack topped with smashed avocado and spices.",
+];
+
+function showRandomRecipe() {
+  const randomIndex = Math.floor(Math.random() * recipes.length); // Get a random index
+  const randomRecipe = recipes[randomIndex]; // Select the random recipe
+  const recipeDisplay = document.getElementById("random-recipe-display");
+
+  // Display the random recipe
+  recipeDisplay.textContent = randomRecipe;
+}
+
+ </script>   
+      
+    <hr>
+    
+    <fieldset style="background-color: #0000002f;">
+      <legend style="color: #ff000062;"><strong>TIP & TRICKS</strong></legend>
+      <h1><b>Here are some tips and tricks to make your cooking experience easier and more enjoyable:</b></h1>
+      <h1>
+        <ol type="1">
+          <li>Prep Ahead: Organize ingredients before starting.</li>
+          <li>Sharp Knives: Keep knives sharp for safety and efficiency.</li>
+          <li>Season Gradually: Season as you cook, not just at the end.</li>
+          <li>Taste Often: Taste and adjust seasoning as you go.</li>
+          <li>Control Heat: Use high heat for searing, low for simmering.</li>
+          <li>Don’t Overcrowd: Give ingredients space to cook properly.</li>
+          <li>Rest Meat: Let cooked meat rest before slicing.</li>
+          <li>Add Acid: Brighten flavors with lemon juice or vinegar.</li>
+          <li>Deglaze Pan: Use liquid to lift browned bits for sauces.</li>
+          <li>Use a Thermometer: Ensure meat is cooked perfectly.</li>
+          <li>Save Pasta Water: Use it to adjust sauce consistency.</li>
+          <li>Fresh Herbs: Store and use fresh herbs for flavor.</li>
+          <li>Microplane: Finely grate garlic, ginger, and zest.</li>
+          <li>Clean as You Go: Tidy up while cooking to stay organized.</li>
+          <li><a name="inc"><h1>Experiment: Try new things and enjoy the process!</h1></a></li>
+        </ol>
+      </h1>          
+          <center>
+            <h2>
+              Don’t be afraid to try new ingredients or techniques.
+              Cooking is a creative process, so enjoy it and make it your own! 
+              These tips can help you cook more efficiently and enjoy the process, 
+              whether you're a beginner or an experienced cook.
+            </h2>
+          </center>
+                
+            
+    </fieldset>
+        
+    <center><a href="file:///C:/Users/Dell/OneDrive/Desktop/new%20project/incredents/ingredents.html"><button class="improved-button">Ingredients I Don’t Have</button></a></center>
+    <style>
+      .improved-button {
+  background-color: #ff6f61; /* Eye-catching coral color */
+  color: white; /* Text contrast */
+  border: none; /* Clean look */
+  border-radius: 8px; /* Smooth rounded corners */
+  padding: 10px 20px; /* Comfortable size */
+  font-size: 30px; /* Readable text */
+  font-weight: bold; /* Emphasize the button */
+  cursor: pointer; /* Indicates clickable */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Adds depth */
+  transition: transform 0.2s, background-color 0.2s; /* Smooth hover effect */
+}
+
+.improved-button:hover {
+  background-color: #e65b50; /* Slightly darker coral */
+  transform: scale(1.05); /* Grows slightly on hover */
+}
+
+.improved-button:active {
+  transform: scale(0.95); /* Shrinks slightly when clicked */
+}
+
+.improved-button:focus {
+  outline: 2px solid #ff9989; /* Focus accessibility */
+  outline-offset: 4px; /* Makes focus stand out */
+}
+    </style>
+    
+    <div class="gallery">
+      <img src="recipe 1.jpg" alt="Recipe 1">
+      <img src="recipe 2.jpg" alt="Recipe 2">
+      <img src="recipe 3.jpg" alt="Recipe 3">
+    </div>
+    <style>
+      .gallery {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    .gallery img {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+    
+    </style>    
+    <center>
+    <div class="rating-section">
+      <h3>Rate the site😊</h3>
+      <div id="stars" class="stars">
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+      </div>
+      <button onclick="submitReview()" class="my-button">Submit</button>
+      <div id="reviews">
+        <h3>Reviews:</h3>
+        <!-- Reviews will appear here dynamically -->
+      </div>
+    </div>
+  </div> 
+</center>  
+
+    <style>
+      /* Target the specific class for the container */
+.rating-container {
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: flex-start; /* Align the content to the top */
+  height: 100vh;           /* Full viewport height */
+  padding-top: 50px;       /* Add padding to push content down */
+}
+
+.rating-section {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Stars styling */
+.stars {
+  color: gray;
+  font-size: 34px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.stars span.selected {
+  color: rgb(255, 187, 0);
+}
+
+/* Button styling */
+.my-button {
+  padding: 10px 15px;
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.my-button:hover {
+  background-color: #e68a00;
+}
+
+/* Reviews styling */
+#reviews {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#reviews div {
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+   .rating-section {
+      text-align: center;
+      padding: 95px;            /* Reduced padding to make the box smaller */
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;         /* Restrict box width */
+      width: 100%;              /* Make the box responsive */
+      min-height: 250px;        /* Set a minimum height for the box */
+      margin-top: 100px;         /* Push the box down */
+    }
+
+    .stars span {
+  transition: color 0.6s ease;
+}
+
+   
+   </style>
+    
+    <script>
+
+
+      // Flag to track if the user has already submitted a rating
+let hasRated = false;
+
+// Add event listeners to stars
+document.querySelectorAll('#stars span').forEach((star, index) => {
+  star.addEventListener('click', () => {
+    if (hasRated) {
+      alert("You have already submitted your rating!");
+      return; // Prevent further rating selection
+    }
+
+    const stars = document.querySelectorAll('#stars span');
+    stars.forEach((s, i) => {
+      s.classList.toggle('selected', i <= index);
+    });
+  });
+});
+
+// Submit review function
+function submitReview() {
+  if (hasRated) {
+    alert("You have already submitted your rating!");
+    return; // Prevent submitting more than once
+  }
+
+  const stars = document.querySelectorAll('#stars .selected').length; // Count selected stars
+
+  if (stars === 0) {
+    alert('Please select a star rating!');
+    return;
+  }
+
+  const reviewContainer = document.getElementById('reviews');
+  const newReview = document.createElement('div');
+  newReview.innerHTML = `
+    <p><strong>Rating:</strong> ${'★'.repeat(stars)} (${stars}/5)</p>
+  `;
+  reviewContainer.appendChild(newReview);
+
+  // Disable further ratings and submission
+  hasRated = true;
+  alert("Your rating has been submitted!");
+
+  // Disable star selection and the submit button
+  document.querySelectorAll('#stars span').forEach((star) => {
+    star.style.pointerEvents = 'none'; // Disable clicking on stars
+  });
+
+  document.querySelector('.my-button').disabled = true; // Disable submit button
+}
+
+    </script>   
+
+    <table bgcolor="black">
+      <tr>
+        <th>
+          <center>
+            <strong>
+              <u style="color: white;">
+                <a name="manu">
+                  <h1 style="color: rgba(255, 255, 255, 0.514);">
+                    ABOUT ME
+                  <hr>
+                  </h1>
+                </a>
+              </u>
+            </strong>
+          </center>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <h1 style="color: rgba(255, 255, 255, 0.575);" align="center">
+            I am an enthusiastic Plus Two student currently studying at Rahmaniya HSS for Handicapped in Kozhikode, 
+            Kerala. I am eager to kickstart my career in the IT field, particularly in web development, by building 
+            a strong technical foundation. With a keen interest in web development and a passion for music, I have 
+            developed basic technical skills in HTML and CSS. I am fluent in both English and Malayalam and possess 
+            key soft skills such as communication, teamwork, and typing. I am looking for opportunities to learn, 
+            grow, and contribute my abilities to a dynamic team within the tech industry.
+          </h1>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <strong>
+            <u style="color: white;">
+              <a name="con">
+                <h1 style="color: rgba(255, 255, 255, 0.514);" align="center">
+                  "Contact on"
+                </h1>
+              </a>
+            </u>
+          </strong>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <center>
+            <a href="https://www.facebook.com/profile.php?id=100087442854878" style="color: white; text-decoration: none;">
+              <button 
+                style="background: linear-gradient(45deg, #3b5998, #8b9dc3); border: none; padding: 10px 20px; border-radius: 5px; color: white; font-size: 16px;">      
+                        <i class="fab fa-facebook-f"></i> 
+              </button>
+            </a>
+            <a href="https://www.instagram.com/kamalraj7703/" style="color: white; text-decoration: none;">
+              <button 
+                style="background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4); border: none; padding: 10px 20px; border-radius: 5px; color: white; font-size: 16px;">      
+                  <i class="fab fa-instagram"></i>     
+              </button>
+            </a>        
+            <a href="https://wa.me/qr/723JQCCUYAWTH1" style="color: white; text-decoration: none;">
+              <button 
+                style="background: linear-gradient(45deg, #25D366, #128C7E); border: none; padding: 10px 20px; border-radius: 5px; color: white; font-size: 16px;">    
+                        <i class="fab fa-whatsapp"></i>                       
+              </button>
+            </a>        
+            <a href="https://www.linkedin.com/in/kamalraj-manu6898752a0" style="color: white; text-decoration: none;">
+              <button 
+                style="background: linear-gradient(45deg, #0077B5, #005582); border: none; padding: 10px 20px; border-radius: 5px; color: white; font-size: 16px;">            
+                        <i class="fab fa-linkedin"></i>       
+              </button>
+            </a>        
+            <a href="https://x.com/KamalRaj1390458" style="color: white; text-decoration: none;">
+              <button 
+                style="background: linear-gradient(45deg, #1DA1F2, #0d95e8); border: none; padding: 10px 20px; border-radius: 5px; color: white; font-size: 16px;">            
+                  <i class="fab fa-twitter"></i>       
+              </button>
+            </a>       
+           <b>
+            <h1 style="color: greenyellow;" align="center">Follow guys..</h1>
+           </b>
+          </center> 
+        </td>
+      </tr>
+      <tr> 
+        <td>
+          <video autoplay loop muted src="video.mp4" width="400" align="right"></video>
+          <img src="cook1.jpg" width="250" align="right">
+        </td>
+      </tr>
+      <tr align="center">
+        <td>
+                   
+        </td>
+      </tr>
+      <tr> 
+        <td>
+          <a href="#top"><i class='bx bxs-chevrons-up' style="color:#ffffff; font-size: 35px;"></i></a>
+        </td>
+        <td align="center">
+          <footer>
+            <p>
+                <a href="#terms" onclick="showTerms()" style="color:#ff9900; text-decoration:underline;">Terms & Conditions</a>.
+            </p>
+          </footer>
+               
+          <div id="termsModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:80%; max-width:500px; background:white; color:black; padding:20px; box-shadow:0 4px 8px rgba(0,0,0,0.2); border-radius:10px; z-index:1000;">
+            <h2 style="text-align:center;">Terms & Conditions</h2>
+            <p style="text-align:justify; line-height:1.5;">
+                Welcome to Kunchu's Cooking Recipes! By accessing or using our website,
+                you agree to complete with the following terms and conditions. Please read them carefully.
+                <ul>
+                  <li>On the chat option mobile no. is not allowed.</li>
+                  <li>20% of every purchase you make must be paid to the site owner</li>
+                </ul>
+                
+                <input type="checkbox" name="agree" align="right">
+            </p>          
+            <button onclick="closeTerms()" style="display:block; margin:20px auto; padding:10px 20px; background-color:#2bff00; color:white; border:none; border-radius:5px; cursor:pointer;">i Agree</button>
+            <button onclick="closeTerms()" style="display:block; margin:20px auto; padding:10px 20px; background-color:#ff0000; color:white; border:none; border-radius:5px; cursor:pointer;">Close</button>
+            </div>
+               
+        <script>
+          function showTerms() {
+              document.getElementById('termsModal').style.display = 'block';
+          }
+      
+          function closeTerms() {
+              document.getElementById('termsModal').style.display = 'none';
+          }
+      </script>
+            
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
